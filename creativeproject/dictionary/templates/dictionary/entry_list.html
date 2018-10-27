@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title> Search </title>
+{% endblock %}
+
+{% block sidebar %}
+  <div class="searchResults">
+    <p>Results for:</p><span id="searched_word">{{ word }}</span>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <input type='hidden' id='translation' value= "{{ translation }}">
+  <input type='hidden' id='dialect' value= "{{ dialect }}">
+  <input type='hidden' id='word' value="{{ word }}">
+  <input
+      type='hidden'
+      id='cur_data'
+      data-translation="{{ translation }}"
+      data-dialect="{{ dialect }}"
+      data-word="{{ word }}">
+    </input>
+    {% if entry_list %}
+      {% for e in entry_list %}
+        <li id="{{forloop.counter}}">
+          <div>
+            <td>{{ e.script_word.label_tag }}</td>
+            <td>{{ e.script_word }}</td>
+          </div>
+          <div>
+            <td>{{ e.arabizi_word.label_tag }}</td>
+            <td>{{ e.arabizi_word }}</td>
+          </div>
+          <div>
+            <td>{{ e.part_of_speech_word.label_tag }}</td>
+            <td>{{ e.part_of_speech_word }}</td>
+          </div>
+          <div>
+            <td>{{ e.definition.label_tag }}</td>
+            <td>{{ e.definition }}</td>
+          </div>
+        </li>
+      {% endfor %}
+    {% else %}
+      <strong> No entries for this word </strong>
+    {% endif %}
+{% endblock %}

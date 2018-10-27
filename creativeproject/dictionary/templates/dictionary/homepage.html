@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title> Homepage </title>
+{% endblock %}
+
+{% block content %}
+
+  <div class="page-header">
+     <p id="title">Arabic Dialect Dictionary</p>
+       <input id="search" type="text" name="q" placeholder="Search...">
+
+       <p id="translationHeader">Translation:</p>
+       <div class="translationRadios">
+         <input type="radio" name="translation" value="enar" checked> English-Arabic<br>
+         <input type="radio" name="translation" value="aren"> Arabic-English<br>
+       </div>
+
+       <p id="dialectHeader">Dialects:</p>
+       <div class="dialectRadios">
+         <input type="radio" name="dialect" value="Levantine" checked> Levantine<br>
+         <input type="radio" name="dialect" value="Egyptian"> Egyptian<br>
+         <input type="radio" name="dialect" value="Gulf"> Gulf<br>
+       </div>
+
+      <input id="submit_button" type="submit" value="Submit" name="Submit">
+  </div>
+
+  <script>
+   function setURL()
+   {
+     var url = '/dictionary/';
+
+     //get translation
+     var translations = document.getElementsByName('translation');
+     for(var j=0; j<translations.length; j++) {
+       if(translations[j].checked) {
+         url += translations[j].value + '/';
+       }
+     }
+
+    //get dialect
+     var dialects = document.getElementsByName('dialect');
+     for(var i=0; i<dialects.length; i++) {
+       if(dialects[i].checked) {
+         url += dialects[i].value + '/';
+       }
+     }
+
+     //get word
+     var word = document.getElementById('search').value;
+     url += word;
+
+     //add url to form action
+     console.log(url);
+     window.location = url;
+   }
+   document.getElementById('submit_button').addEventListener('click', setURL, false);
+   window.onload = function() { document.getElementById('search').value = '';}
+  </script>
+
+{% endblock %}
